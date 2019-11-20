@@ -1,4 +1,6 @@
-module.exports = {
+const jsConfig = require('./javascript');
+
+const vueConfig = {
   extends: [
     'plugin:vue/essential',
     '@vue/airbnb',
@@ -295,4 +297,9 @@ module.exports = {
     // 检测 v-slot 是否有效
     // 'vue/valid-v-slot': 'error',
   },
+};
+
+module.exports = {
+  ...jsConfig,
+  ...vueConfig,
 };

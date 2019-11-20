@@ -1,3 +1,3 @@
-const baseConfig = require('./base');
+const jsConfig = require('./javascript');
 
-module.exports = baseConfig;
+module.exports = jsConfig;

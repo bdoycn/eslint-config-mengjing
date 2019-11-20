@@ -1,6 +1,6 @@
 {
   "name": "@mengjing/eslint-config",
-  "version": "0.0.1-1",
+  "version": "0.0.1-2",
   "description": "梦鲸前端团队规范 - eslint 规则",
   "main": "index.js",
   "scripts": {

@@ -519,7 +519,7 @@ module.exports = {
     // 强制剩余和扩展运算符与表达式之间没有空格
     'rest-spread-spacing': ['error', 'never'],
     // 强制 import 语句的排序
-    'sort-imports': 'error',
+    'sort-imports': 'off', // 这个的不管相对导入还是绝对导入 都会统一排序 后期会根据绝对导入在先相对导入在后的规则进行排序
     // 创建 Symbol 时必须带有描述
     'symbol-description': 'error',
     // 禁止模板表达式中的花括号内出现空格

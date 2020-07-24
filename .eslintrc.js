@@ -1,12 +1,15 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    es6: true,
   },
-  extends: [
+  'extends': [
     'plugin:vue/essential',
-    '@vue/airbnb',
+    'eslint:recommended'
   ],
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 禁止在线上环境使用 debugger
@@ -15,8 +18,8 @@ module.exports = {
     'no-warning-comments': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     /************************* 基础 ******************************/
-    // 不使用强制的换行符 因为要切换到 lf 还需要更改其他配置 而且因为 git 会自动转换结束符 所以可以暂时不设置
-    'linebreak-style': 'off',
+    // 强制使用 lf 换行符
+    'linebreak-style': 'lf',
     // 禁止使用 var 声明变量, 必须使用 const 或 let
     'no-var': 'error',
     // 禁止 for 中出现无限循环(如果要使用无限循环请使用 while)
@@ -27,9 +30,10 @@ module.exports = {
     'no-async-promise-executor': 'error',
     // 禁止与 -0 进行比较, 应该使用 Object.is(x, -0)
     'no-compare-neg-zero': 'error',
+    // 留在严格模式开启
     // 禁止在条件语句中出现赋值操作符(为避免将 == 写为 = 的错误出现)
     // 如果必须要使用赋值操作符 则必须将赋值操作符用括号括起来
-    'no-cond-assign': ['error', 'except-parens'],
+    // 'no-cond-assign': ['error', 'except-parens'],
     // 禁止在条件中使用常量表达式(如 true, false, void 0 等)
     'no-constant-condition': 'error',
     // 禁止在 function 定义中出现重复的参数
@@ -40,7 +44,7 @@ module.exports = {
     'no-duplicate-case': 'error',
     // 禁止出现空语句块(可以通过在语句块中添加注释通过此规则, 另外 catch 标签不受此规则限制)
     'no-empty': ['error', {
-      'allowEmptyCatch': true,
+      allowEmptyCatch: true,
     }],
     // 禁止在正则表达式中出现空字符集
     'no-empty-character-class': 'error',
@@ -48,8 +52,9 @@ module.exports = {
     'no-ex-assign': 'error',
     // 禁止不必要的布尔值转换(如在条件表达式中没必要再使用 !! 或 Boolean 进行强制转换)
     'no-extra-boolean-cast': 'error',
+    // 留在严格模式开启
     // 禁止不必要的括号
-    'no-extra-parens': 'error',
+    // 'no-extra-parens': 'error',
     // 禁止不必要的分号
     'no-extra-semi': 'error',
     // 禁止对已声明的 function 重新声明/赋值
@@ -78,8 +83,9 @@ module.exports = {
     'no-unsafe-finally': 'error',
     // 禁止对关系运算符(in, instanceof)的做操作符使用否定操作符(!)
     'no-unsafe-negation': 'error',
+    // 留在严格模式启用
     // 禁止有 await 或 yield 的使用而可能导致出现竞态条件的赋值
-    'require-atomic-updates': 'error',
+    // 'require-atomic-updates': 'error',
     // 必须使用 isNaN 检查 NaN, 而不是 NaN === NaN(这是不正确的)
     'use-isnan': 'error',
     // 强制 typeof 表达式与有效的字符串进行比较(undefined, object, boolean, number, string, function, symbol, bigint)
@@ -92,12 +98,13 @@ module.exports = {
     'block-scoped-var': 'error',
     // 不强制类方法使用 this
     'class-methods-use-this': 'off',
+    // 留在严格模式启用
     // 不限制圈复杂度
-    'complexity': ['error', 30],
-    // 无需使用一致的 return 语句
-    'consistent-return': 'off',
+    // 'complexity': ['error', 10],
+    // 必须使用一致的 return 语句
+    'consistent-return': ['error', { "treatUndefinedAsUnspecified": false }],
     // 无需始终使用大括号
-    'curly': 'off',
+    curly: 'off',
     // switch 语句必须有 default 分支(允许分支中没有具体代码)
     'default-case': 'error',
     // 在成员表达式中点号必须和属性在一行
@@ -118,7 +125,7 @@ module.exports = {
     // 如果要在 case 或 default 子句中使用词法声明, 应该将其包裹在块中
     'no-case-declarations': 'error',
     // 禁止使用看起来像除法的正则表达式(/=/ 应该换成 /[=]/)
-    'no-div-regex':  'error',
+    'no-div-regex': 'error',
     // 允许 return 之后继续存在 else / else-if 块
     'no-else-return': 'off',
     // 禁止出现空函数(因空函数意义不明, 可在其中添加注释以避免此规则)
@@ -141,8 +148,8 @@ module.exports = {
     'no-floating-decimal': 'error',
     // 禁止对原生对象或只读的全局对象进行赋值
     'no-global-assign': 'error',
-    // 禁止使用较短的符号实现类型转换(需要使用各种类型的构造函数, 如 Number, String 等)
-    'no-implicit-coercion': 'error',
+    // 允许使用较短的符号实现类型转换(需要使用各种类型的构造函数, 如 Number, String 等)
+    'no-implicit-coercion': 'off',
     // 禁止在全局范围使用变量或函数声明(但是因为目前大部分都是 ES 模块, 所以暂不使用)
     'no-implicit-globals': 'off',
     // 禁止使用类似 eval 的方法
@@ -154,8 +161,9 @@ module.exports = {
     // 禁用标签语句
     'no-labels': 'error',
     // 禁止出现魔术数字(应由常量取代)
-    'no-magic-numbers': ['error', {
-      'ignoreArrayIndexes': true,
+    'no-magic-numbers': ['warn', {
+      ignore: [-1, 0, 1],
+      ignoreArrayIndexes: true,
     }],
     // 禁止出现多个冗余的空格
     'no-multi-spaces': 'error',
@@ -195,9 +203,9 @@ module.exports = {
     'no-unmodified-loop-condition': 'error',
     // 禁止出现未使用过的表达式
     'no-unused-expressions': ['error', {
-      'allowShortCircuit': true, // 允许使用短路表达式
-      'allowTernary': true, // 允许使用三元运算符
-      'allowTaggedTemplates': true, // 允许使用带标签的模板字面量
+      allowShortCircuit: true, // 允许使用短路表达式
+      allowTernary: true, // 允许使用三元运算符
+      allowTaggedTemplates: true, // 允许使用带标签的模板字面量
     }],
     // 禁止出现未使用过的标签
     'no-unused-labels': 'error',
@@ -215,8 +223,9 @@ module.exports = {
     'no-void': 'error',
     // 禁用 with 语句
     'no-with': 'error',
+    // 在严格模式下启用
     // 必须使用 Error 对象作为 Promise 拒绝的原因
-    'prefer-promise-reject-errors': 'error',
+    // 'prefer-promise-reject-errors': 'error',
     // 不限制 parseInt 必须使用基数
     'radix': 'off',
     // 在 async 函数中必须存在 await 表达式
@@ -243,8 +252,8 @@ module.exports = {
     'no-undef': 'error',
     // 禁止将初始化变量值为 undefined(因为未初始化的值就是 undefined)
     'no-undef-init': 'error',
-    // 禁止 undefined 被重新声明/覆盖
-    'no-undefined': 'error',
+    // 允许使用 undefined
+    'no-undefined': 'off',
     // 禁止未使用过的变量(声明的变量必须要被使用)
     'no-unused-vars': 'error',
     // 禁止在变量定义前使用它
@@ -256,9 +265,9 @@ module.exports = {
     'array-bracket-newline': 'off',
     // 禁止在数组开括号后和闭括号前出现空格
     'array-bracket-spacing': ['error', 'never', {
-      'singleValue': false,
-      'objectsInArrays': false,
-      'arraysInArrays': false,
+      singleValue: false,
+      objectsInArrays: false,
+      arraysInArrays: false,
     }],
     // 不要求数组元素间出现换行
     'array-element-newline': 'off',
@@ -268,23 +277,23 @@ module.exports = {
     // 建议将注释写在块内的第一行并在下面添加一行空行
     'brace-style': ['error', '1tbs'],
     // 必须使用驼峰拼写法
-    'camelcase': ['error', {
-      'properties': 'always',
+    camelcase: ['error', {
+      properties: 'always',
     }],
     // 必须在对象/导入/导出/函数参数中使用拖尾逗号, 而在数组中不可以使用
     'comma-dangle': ['error', {
-      'arrays': 'never',
-      'objects': 'always-multiline',
-      'imports': 'always-multiline',
-      'exports': 'always-multiline',
-      'functions': 'always-multiline',
+      arrays: 'never',
+      objects: 'always-multiline',
+      imports: 'always-multiline',
+      exports: 'always-multiline',
+      functions: 'always-multiline',
     }],
     // 规定逗号在变量声明/数组字面量/对象字面量/函数参数和序列中前后空格的一致性
     // 禁止在逗号前出现空格
     // 必须在逗号后出现空格
     'comma-spacing': ['error', {
-      'before': false,
-      'after': true,
+      before: false,
+      after: true,
     }],
     // 逗号必须放置在当前行的末尾
     'comma-style': ['error', 'last'],
@@ -294,7 +303,7 @@ module.exports = {
     'consistent-this': ['error', 'that'],
     // 必须在文件末尾保留一行
     'eol-last': ['error', 'always'],
-    // 函数标识符和其调用的之间不能存在空格
+    // 函数标识符和其调用之间不能存在空格
     'func-call-spacing': ['error', 'never'],
     // 函数表达式需要加上命名(因为更方便调试)
     'func-names': ['error', 'always'],
@@ -302,18 +311,18 @@ module.exports = {
     'function-paren-newline': ['error', 'multiline'],
     // 统一缩进为 2 个空格
     'indent': ['error', 2, {
-      'SwitchCase': 1, // case/default 缩进 0
+      SwitchCase: 1, // case/default 缩进 0
     }],
     // 设置对象字面量中键值之间的空格风格
     'key-spacing': ['error', {
-      'beforeColon': false, // 键和冒号之间没有空格
-      'afterColon': true, // 冒号和值之间至少有一个空格
-      'mode': 'strict', // 强制冒号前后只有一个空格
+      beforeColon: false, // 键和冒号之间没有空格
+      afterColon: true, // 冒号和值之间至少有一个空格
+      mode: 'strict', // 强制冒号前后只有一个空格
     }],
     // 强制关键词前后必须有一个空格
     'keyword-spacing': ['error', {
-      'before': true, // 关键字前至少有一个空格
-      'after': true, // 关键字后至少有一个空格
+      before: true, // 关键字前至少有一个空格
+      after: true, // 关键字后至少有一个空格
     }],
     // 强制使用 unix 换行符风格
     'linebreak-style': ['error', 'unix'],
@@ -323,16 +332,16 @@ module.exports = {
     'max-depth': ['error', 4],
     // 每行最大长度为 120
     'max-len': ['error', {
-      code: 120,
+      code: 100,
     }],
     // 文件的最大行数为 500 行
     'max-lines': ['error', {
-      max: 500,
+      max: 300,
     }],
-    // 函数的最大行数为 50 行
-    'max-lines-per-function': ['error', {
-      max: 50,
-    }],
+    // 函数的最大行数为 50 行(setup 和 render 比较长)
+    // 'max-lines-per-function': ['error', {
+    //   max: 50,
+    // }],
     // 回调函数的最大嵌套深度为 6 层
     'max-nested-callbacks': ['error', {
       max: 6,
@@ -381,14 +390,14 @@ module.exports = {
     'nonblock-statement-body-position': 'error',
     // 强制在花括号内使用一致的换行符
     'object-curly-newline': ['error', {
-      multiline: true,  // 如果属性与属性之间有换行符, 则要求有换行符
-      consistent: true, // 如果任意一边花括号使用了换行符 则另一边也需要使用换行符
+      multiline: true, // 如果属性与属性之间有换行符, 则要求有换行符
+      consistent: true, // 在仅有一行的情况下 允许换行
     }],
     // 如果花括号内有值 则花括号两边内部必须有空格
     'object-curly-spacing': ['error', 'always'],
-    // 如果对象有多个属性则必须放在单独的行上
+    // 如果对象有多个属性则必须放在单独的行上或一行上
     'object-property-newline': ['error', {
-      allowAllPropertiesOnSameLine: true, // 允许所有的属性放在单独的行上
+      allowAllPropertiesOnSameLine: true, // 允许所有的属性放在一行上
     }],
     // 不允许一次声明多个变量
     'one-var': ['error', 'never'],
@@ -407,16 +416,16 @@ module.exports = {
       numbers: true, // 数字需要添加引号
     }],
     // 强制尽可能的使用单引号
-    'quotes': ['error', 'single'],
-    // 必须使用分号
-    'semi': 'error',
-    // 分号前面不能有空格 分号后面必须有空格(不是行尾的情况下)
+    quotes: ['error', 'single'],
+    // 不使用分号
+    semi: ['error', 'never', { beforeStatementContinuationChars: 'always' }],
+    // 分号前面不能有空格 分号后面不能有空格(不是行尾的情况下)
     'semi-spacing': ['error', {
       before: false,
-      after: true,
+      after: false,
     }],
     // 分号必须出现在行尾
-    'semi-style': 'error',
+    'semi-style': ['error', 'first'],
     // 块语句前必须有空格
     'space-before-blocks': ['error', 'always'],
     // 禁止函数括号前出现空格, 但是匿名函数和箭头函数的括号前需要有空格
@@ -446,10 +455,8 @@ module.exports = {
     /************************* ES6 ******************************/
     // 箭头函数根据需要强制使用/不使用大括号
     'arrow-body-style': ['error', 'as-needed'],
-    // 箭头函数根据需要在参数周围强制使用/不使用小括号
-    'arrow-parens': ['error', 'as-needed', {
-      requireForBlockBody: true, // 在函数体被大括号包裹的时候 必须使用小括号
-    }],
+    // 箭头函数根据需要在参数周围强制使用小括号
+    'arrow-parens': ['error', 'always'],
     // 箭头函数的箭头前后必须有空格
     'arrow-spacing': 'error',
     // 派生类的构造函数中必须调用 super 函数
@@ -503,11 +510,11 @@ module.exports = {
       AssignmentExpression: {
         array: false,
         object: true,
-      }
+      },
     }, {
-      // 不应用于重命名的属性
-      enforceForRenamedProperties: false,
-    }],
+        // 不应用于重命名的属性
+        enforceForRenamedProperties: false,
+      }],
     // 在函数中使用剩余参数而不是 arguments
     'prefer-rest-params': 'error',
     // 调用函数时使用扩展语法而非使用 apply 函数
@@ -518,7 +525,7 @@ module.exports = {
     'require-yield': 'error',
     // 强制剩余和扩展运算符与表达式之间没有空格
     'rest-spread-spacing': ['error', 'never'],
-    // 强制 import 语句的排序
+    // 不强制 import 语句的排序
     'sort-imports': 'off', // 这个的不管相对导入还是绝对导入 都会统一排序 后期会根据绝对导入在先相对导入在后的规则进行排序
     // 创建 Symbol 时必须带有描述
     'symbol-description': 'error',
@@ -529,11 +536,6 @@ module.exports = {
       before: false,
       after: true,
     }],
-
-    /************************* React ******************************/
-    // 强制 JSX 使用双引号
-    'jsx-quotes': ['error', 'prefer-double'],
-
 
     /************************* Vue ******************************/
     // 必须遵守
@@ -629,10 +631,10 @@ module.exports = {
     'vue/html-end-tags': 'error',
     // 模版中使用两个空格的缩进
     'vue/html-indent': ['error', 2, {
-        'attribute': 1, // 属性缩进 1 倍
-        'baseIndent': 1, // 顶级语句缩进 1 倍
-        'closeBracket': 0, // 右括号缩进 0 倍
-        'alignAttributesVertically': true, // 在有多行属性的情况下 所有属性应和第一个属性垂直对齐
+      'attribute': 1, // 属性缩进 1 倍
+      'baseIndent': 1, // 顶级语句缩进 1 倍
+      'closeBracket': 0, // 右括号缩进 0 倍
+      'alignAttributesVertically': true, // 在有多行属性的情况下 所有属性应和第一个属性垂直对齐
     }],
     // 标签属性的引号必须是双引号
     'vue/html-quotes': ['error', 'double'],
@@ -687,6 +689,10 @@ module.exports = {
     'vue/v-bind-style': ['error', 'shorthand'],
     // 必须使用简写形式的 v-on
     'vue/v-on-style': ['error', 'shorthand'],
+    // 检测 v-slot 是否有效
+    'vue/valid-v-slot': 'error',
+    // 制定 v-slot 的样式
+    'vue/v-slot-style': 'error',
 
     // 推荐
     // 标签中使用固定的属性声明顺序
@@ -723,6 +729,7 @@ module.exports = {
         ['props', 'propsData'],
         'fetch',
         'asyncData',
+        'setup',
         'data',
         'computed',
         'watch',
@@ -751,10 +758,7 @@ module.exports = {
     // 语句块的前后必须有空格
     'vue/block-spacing': ['error', 'always'],
     // 使用统一的大括号风格 brace-style
-    // TODO: 有争议
-    'vue/brace-style': ['error', 'brace-style', {
-      'allowSingleLine': true, // 允许块的开括号的闭括号在同一行
-    }],
+    'vue/brace-style': ['error', '1tbs'],
     // 变量名强制使用驼峰写法
     'vue/camelcase': ['error', {
       'properties': 'always',
@@ -768,7 +772,7 @@ module.exports = {
       'functions': 'always-multiline',
     }],
     // 在成员表达式中必须在点号之前换行
-    // 'vue/dot-location': ['error', 'property'], (此规则没法找到 可能是版本问题 以后再开启)
+    'vue/dot-location': ['error', 'property'],
     // 必须使用全等和全不等
     'vue/eqeqeq': ['error', 'always', {
       'null': 'ignore', // 不对 null 应用此规则 可以用于判断 null 和 undefined
@@ -779,15 +783,13 @@ module.exports = {
       'afterColon': true, // 冒号和值之间至少有一个空格
       'mode': 'strict', // 强制冒号前后只有一个空格
     }],
-    // 关键字前后必须有一个空格(规则没找到 不赞成的规则)
-    // 'vue/keyword-spacing': ['error', {
-    //   'before': true, // 关键字前至少有一个空格
-    //   'after': true, // 关键字后至少有一个空格
-    // }],
-    // 禁止出现空解构(规则没找到)
-    // 'vue/no-empty-pattern': 'error',
-    // 禁止特定的语法
-    'vue/no-restricted-syntax': ['off'],
+    // 关键字前后必须有一个空格
+    'vue/keyword-spacing': ['error', {
+      'before': true, // 关键字前至少有一个空格
+      'after': true, // 关键字后至少有一个空格
+    }],
+    // 禁止出现空解构
+    'vue/no-empty-pattern': 'error',
     // 花括号内的间距必须一致
     'vue/object-curly-spacing': ['error', 'always'],
     // 制定 script 的缩进为两个空格
@@ -807,28 +809,18 @@ module.exports = {
 
 
     // 其他
-    // 模版中的元素名称必须使用大驼峰格式
-    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+    // 模版中的元素名称必须使用 kebab-case 格式
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     // 组件名必须与文件名相同
     'vue/match-component-file-name': ['error', {
       'extensions': ['vue', 'jsx'],
-      'shouldMatchCase': true,
+      'shouldMatchCase': false,
     }],
-    // 布尔类型的 prop 不可以设置默认值
-    'vue/no-boolean-default': 'off',
-    // 禁止使用 scope 属性(考虑到部分 ui 框架还使用 scope 所以暂不禁止)
-    'vue/no-deprecated-scope-attribute': 'off',
+    // 禁止使用 scope 属性
+    'vue/no-deprecated-scope-attribute': 'error',
     // 必须直接导出组件
     'vue/require-direct-export': 'error',
-    // 不规定模版中函数的调用方式
-    'v-on-function-call': 'off',
-    // 不制定 v-slot 的样式
-    'v-slot-style': 'off',
-    // 检测 v-slot 是否有效
-    // 'vue/valid-v-slot': 'error',
-
+    // 规定模版中函数的调用方式(没有参数的情况下 不加小括号)
+    'vue/v-on-function-call': ['error', 'never'],
   },
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
-};
+}

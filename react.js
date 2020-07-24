@@ -1,12 +1,8 @@
-const jsConfig = require('./javascript');
-
-const reactConfig = {
+module.exports = {
+  extends: [
+    './javascript.js',
+  ],
   rules: {
     'jsx-quotes': ['error', 'prefer-double'],
   },
-};
-
-module.exports = {
-  ...jsConfig,
-  ...reactConfig,
 };

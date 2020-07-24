@@ -19,8 +19,7 @@
     "url": "https://github.com/bdoycn/eslint-config-mengjing/issues"
   },
   "homepage": "https://github.com/bdoycn/eslint-config-mengjing#readme",
-  "devDependencies": {
-    "@vue/eslint-config-airbnb": "^5.0.0",
-    "eslint-plugin-vue": "^6.0.1"
+  "dependencies": {
+    "eslint-plugin-vue": "^6.2.2"
   }
 }

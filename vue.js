@@ -1,9 +1,7 @@
-const jsConfig = require('./javascript');
-
-const vueConfig = {
+module.exports = {
   extends: [
     'plugin:vue/essential',
-    '@vue/airbnb',
+    './javascript.js',
   ],
   rules: {
     // 必须遵守
@@ -157,6 +155,10 @@ const vueConfig = {
     'vue/v-bind-style': ['error', 'shorthand'],
     // 必须使用简写形式的 v-on
     'vue/v-on-style': ['error', 'shorthand'],
+    // 检测 v-slot 是否有效
+    'vue/valid-v-slot': 'error',
+    // 制定 v-slot 的样式
+    'vue/v-slot-style': 'error',
 
     // 推荐
     // 标签中使用固定的属性声明顺序
@@ -193,6 +195,7 @@ const vueConfig = {
         ['props', 'propsData'],
         'fetch',
         'asyncData',
+        'setup',
         'data',
         'computed',
         'watch',
@@ -221,10 +224,7 @@ const vueConfig = {
     // 语句块的前后必须有空格
     'vue/block-spacing': ['error', 'always'],
     // 使用统一的大括号风格 brace-style
-    // TODO: 有争议
-    'vue/brace-style': ['error', 'brace-style', {
-      'allowSingleLine': true, // 允许块的开括号的闭括号在同一行
-    }],
+    'vue/brace-style': ['error', '1tbs'],
     // 变量名强制使用驼峰写法
     'vue/camelcase': ['error', {
       'properties': 'always',
@@ -238,7 +238,7 @@ const vueConfig = {
       'functions': 'always-multiline',
     }],
     // 在成员表达式中必须在点号之前换行
-    // 'vue/dot-location': ['error', 'property'], (此规则没法找到 可能是版本问题 以后再开启)
+    'vue/dot-location': ['error', 'property'],
     // 必须使用全等和全不等
     'vue/eqeqeq': ['error', 'always', {
       'null': 'ignore', // 不对 null 应用此规则 可以用于判断 null 和 undefined
@@ -249,15 +249,13 @@ const vueConfig = {
       'afterColon': true, // 冒号和值之间至少有一个空格
       'mode': 'strict', // 强制冒号前后只有一个空格
     }],
-    // 关键字前后必须有一个空格(规则没找到 不赞成的规则)
-    // 'vue/keyword-spacing': ['error', {
-    //   'before': true, // 关键字前至少有一个空格
-    //   'after': true, // 关键字后至少有一个空格
-    // }],
-    // 禁止出现空解构(规则没找到)
-    // 'vue/no-empty-pattern': 'error',
-    // 禁止特定的语法
-    'vue/no-restricted-syntax': ['off'],
+    // 关键字前后必须有一个空格
+    'vue/keyword-spacing': ['error', {
+      'before': true, // 关键字前至少有一个空格
+      'after': true, // 关键字后至少有一个空格
+    }],
+    // 禁止出现空解构
+    'vue/no-empty-pattern': 'error',
     // 花括号内的间距必须一致
     'vue/object-curly-spacing': ['error', 'always'],
     // 制定 script 的缩进为两个空格
@@ -277,29 +275,18 @@ const vueConfig = {
 
 
     // 其他
-    // 模版中的元素名称必须使用大驼峰格式
-    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+    // 模版中的元素名称必须使用 kebab-case 格式
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     // 组件名必须与文件名相同
     'vue/match-component-file-name': ['error', {
       'extensions': ['vue', 'jsx'],
-      'shouldMatchCase': true,
+      'shouldMatchCase': false,
     }],
-    // 布尔类型的 prop 不可以设置默认值
-    'vue/no-boolean-default': 'off',
-    // 禁止使用 scope 属性(考虑到部分 ui 框架还使用 scope 所以暂不禁止)
-    'vue/no-deprecated-scope-attribute': 'off',
+    // 禁止使用 scope 属性
+    'vue/no-deprecated-scope-attribute': 'error',
     // 必须直接导出组件
     'vue/require-direct-export': 'error',
-    // 不规定模版中函数的调用方式
-    'v-on-function-call': 'off',
-    // 不制定 v-slot 的样式
-    'v-slot-style': 'off',
-    // 检测 v-slot 是否有效
-    // 'vue/valid-v-slot': 'error',
+    // 规定模版中函数的调用方式(没有参数的情况下 不加小括号)
+    'vue/v-on-function-call': ['error', 'never'],
   },
-};
-
-module.exports = {
-  ...jsConfig,
-  ...vueConfig,
 };

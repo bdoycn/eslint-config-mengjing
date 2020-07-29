@@ -360,7 +360,7 @@ module.exports = {
     'new-parens': 'error',
     // 方法链中的每个调用都需要换行
     'newline-per-chained-call': ['error', {
-      ignoreChainWithDepth: 1, // 允许每行最多调用一次方法
+      ignoreChainWithDepth: 2, // 允许每行最多调用一次方法
     }],
     // 禁止使用 Array 构造函数(但是允许使用用来创建稀疏数组: new Array(100))
     'no-array-constructor': 'error',

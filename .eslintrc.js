@@ -411,7 +411,7 @@ module.exports = {
     'prefer-object-spread': ['error'],
     // 规定对象属性名使用引号的规则
     'quote-props': ['error', 'as-needed', {
-      keywords: true, // 如果是关键字, 则需要添加引号
+      keywords: false, // 如果是关键字, 则需要添加引号
       unnecessary: true, // 默认不允许添加引号
       numbers: true, // 数字需要添加引号
     }],

@@ -111,7 +111,9 @@ module.exports = {
     // 强制使用点号访问成员属性
     'dot-notation': 'error',
     // 必须使用全等和全不等
-    'eqeqeq': 'error',
+    'eqeqeq': ['error', 'always', {
+      'null': 'ignore', // 不对 null 应用此规则 可以用于判断 null 和 undefined
+    }],
     // 在没有对 for in 出来的值进行 hasOwnProperty 筛选的情况下, 发出警告
     'guard-for-in': 'warn',
     // 每个文件中只能有一个类

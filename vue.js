@@ -277,15 +277,15 @@ module.exports = {
     // 其他
     // 模版中的元素名称必须使用 kebab-case 格式
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],
-    // 组件名必须与文件名相同
+    // 组件名必须与文件名相同(存在 bug, 与文件名相同时依旧报错)
     'vue/match-component-file-name': ['off', {
       'extensions': ['vue', 'jsx'],
       'shouldMatchCase': false,
     }],
     // 禁止使用 scope 属性
     'vue/no-deprecated-scope-attribute': 'error',
-    // 必须直接导出组件
-    'vue/require-direct-export': 'error',
+    // 必须直接导出组件(和 composition-api 冲突)
+    'vue/require-direct-export': 'off',
     // 规定模版中函数的调用方式(没有参数的情况下 不加小括号)
     'vue/v-on-function-call': ['error', 'never'],
   },

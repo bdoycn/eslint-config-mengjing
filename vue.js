@@ -278,7 +278,7 @@ module.exports = {
     // 模版中的元素名称必须使用 kebab-case 格式
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     // 组件名必须与文件名相同
-    'vue/match-component-file-name': ['error', {
+    'vue/match-component-file-name': ['off', {
       'extensions': ['vue', 'jsx'],
       'shouldMatchCase': false,
     }],
